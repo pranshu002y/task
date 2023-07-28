@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Projects from './Projects';
+import Tasks from './Tasks';
+import { ProjectsProvider } from './ProjectsContext';
 
 function App() {
+  const [selectedProject, setSelectedProject] = useState(0);
+
+  const handleProjectSelect = (projectId) => {
+    setSelectedProject(projectId);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Time Tracking Application</h1>
+      <ProjectsProvider>
+        <Projects handleProjectSelect={handleProjectSelect} />
+        <Tasks selectedProject={selectedProject} />
+      </ProjectsProvider>
     </div>
   );
 }
